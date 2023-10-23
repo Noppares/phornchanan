@@ -15,35 +15,57 @@ window.addEventListener("scroll", showHiddenDiv);
 
 // Initial check to see if the div should be shown on page load
 showHiddenDiv();
-// Add a click event listener to the button
-moveToTopBtn.addEventListener("click", function () {
-  scrollToTop(1000); // Smooth scroll to top with a duration of 1000ms (1 second)
-});
 
-function scrollToTop(duration) {
-  const start = window.scrollY;
-  const startTime = performance.now();
-
-  function animateScroll(currentTime) {
-    const elapsedTime = currentTime - startTime;
-    const scrollY = easeInOut(elapsedTime, start, -start, duration);
-    window.scrollTo(0, scrollY);
-
-    if (elapsedTime < duration) {
-      requestAnimationFrame(animateScroll);
-    }
-  }
-
-  function easeInOut(t, b, c, d) {
-    // Easing function (you can use a different one if desired)
-    t /= d / 2;
-    if (t < 1) return (c / 2) * t * t + b;
-    t--;
-    return (-c / 2) * (t * (t - 2) - 1) + b;
-  }
-
-  requestAnimationFrame(animateScroll);
+// Function to scroll to the top of the page
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth", // Smooth scrolling animation
+  });
 }
+
+// Show or hide the button based on scroll position
+window.onscroll = function () {
+  var button = document.getElementById("moveToTopBtn");
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    button.style.display = "block";
+  } else {
+    button.style.display = "none";
+  }
+};
+
+// Attach the scrollToTop function to the button click event
+document.getElementById("moveToTopBtn").addEventListener("click", scrollToTop);
+
+// // Add a click event listener to the button
+// moveToTopBtn.addEventListener("click", function () {
+//   scrollToTop(1000); // Smooth scroll to top with a duration of 1000ms (1 second)
+// });
+
+// function scrollToTop(duration) {
+//   const start = window.scrollY;
+//   const startTime = performance.now();
+
+//   function animateScroll(currentTime) {
+//     const elapsedTime = currentTime - startTime;
+//     const scrollY = easeInOut(elapsedTime, start, -start, duration);
+//     window.scrollTo(0, scrollY);
+
+//     if (elapsedTime < duration) {
+//       requestAnimationFrame(animateScroll);
+//     }
+//   }
+
+//   function easeInOut(t, b, c, d) {
+//     // Easing function (you can use a different one if desired)
+//     t /= d / 2;
+//     if (t < 1) return (c / 2) * t * t + b;
+//     t--;
+//     return (-c / 2) * (t * (t - 2) - 1) + b;
+//   }
+
+//   requestAnimationFrame(animateScroll);
+// }
 
 // Function to open the modal and display the clicked image
 function openModal(image) {
